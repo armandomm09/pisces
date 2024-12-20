@@ -1,6 +1,6 @@
-# Project: Fish Detection and Classification
+# Pisces: Fish Segmentation and Classification
 
-This project combines computer vision, machine learning, and WhatsApp integration to build a robust system capable of detecting, classifying, and segmenting images of fish sent via the WhatsApp application. Here is a technical explanation of the components and their functioning.
+Inspired by my hobbie on Recreational fishing, Pisces project combines computer vision, machine learning, and WhatsApp integration to build a robust system capable of detecting, classifying, and segmenting images of fish sent via the WhatsApp application. Here lies a technical explanation of the components and their functioning.
 
 ---
 
@@ -31,6 +31,9 @@ A FastAPI server handles requests related to images, including classification, s
   3. Generation of results, including nicknames.
 - The processed image is sent back through WhatsApp, along with a message containing the fish’s name and nickname.
 
+<img height=600 src="https://github.com/user-attachments/assets/c89bbab3-4687-42c5-8a72-ce52374c6fcd" />
+
+<img height=600 src="https://github.com/user-attachments/assets/7c277553-9f2f-4bb6-9f85-8438147e1439" />
 
 ---
 
