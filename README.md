@@ -31,9 +31,13 @@ A FastAPI server handles requests related to images, including classification, s
   3. Generation of results, including nicknames.
 - The processed image is sent back through WhatsApp, along with a message containing the fish’s name and nickname.
 
-<img height=600 src="https://github.com/user-attachments/assets/c89bbab3-4687-42c5-8a72-ce52374c6fcd" />
+<p align="center">
+  
+  <img height=500 src="https://github.com/user-attachments/assets/c89bbab3-4687-42c5-8a72-ce52374c6fcd" />
 
-<img height=600 src="https://github.com/user-attachments/assets/7c277553-9f2f-4bb6-9f85-8438147e1439" />
+  <img height=500 src="https://github.com/user-attachments/assets/7c277553-9f2f-4bb6-9f85-8438147e1439" />
+
+</p>
 
 ---
 
