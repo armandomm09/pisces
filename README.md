@@ -47,6 +47,18 @@ The WhatsApp client uses `fetch` to make POST and GET requests to the FastAPI se
 - **POST**: Sends the image for processing.
 - **GET**: Retrieves the processed image.
 
+<p align="center">
+  
+<img height=400 src="https://github.com/user-attachments/assets/76dbea2c-1db8-4b31-8b28-4bba8c50f8a0"/>
+
+<img height=400 src="https://github.com/user-attachments/assets/a9019999-b4cb-4622-a713-850fe7091058"/>
+
+<img height=400 src="https://github.com/user-attachments/assets/5150fa9d-75fd-460a-861d-5a900cf24085"/>
+
+
+
+</p>
+
 ---
 
 ### **Technologies Used**
