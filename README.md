@@ -20,20 +20,6 @@ A FastAPI server handles requests related to images, including classification, s
 - **Model Integration**: Pre-trained models (YOLOInference, EmbeddingClassifier, and segmentation) are stored on the server to ensure accuracy in results.
 - **Custom Nicknames**: Based on a `labels/vernacular_names.json` file, it provides common names for detected species.
 
-*Suggested Image:*  
-
-
-
----
-
-### **File Storage and Management**
-
-- **uploads/ directory**: Stores original images sent by users.
-- **downloads/ directory**: Stores processed images with segmentation and other visual annotations.
-
-*Suggested Image:*  
-Representation of the system folders (uploads/ and downloads/).
-
 ---
 
 ### **Image Processing Pipeline**
@@ -45,8 +31,6 @@ Representation of the system folders (uploads/ and downloads/).
   3. Generation of results, including nicknames.
 - The processed image is sent back through WhatsApp, along with a message containing the fish’s name and nickname.
 
-*Suggested Image:*  
-Flowchart illustrating the process from image reception to the sending of results.
 
 ---
 
@@ -74,5 +58,3 @@ The WhatsApp client uses `fetch` to make POST and GET requests to the FastAPI se
 The system processes images sent to WhatsApp, classifies the fish species, generates personalized nicknames, and applies visual segmentation. The results are returned to the user as a WhatsApp message enriched with text and images.
 
 ---
-
-Feel free to adjust any sections if you need more specific details.
