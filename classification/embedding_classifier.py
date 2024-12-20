@@ -61,13 +61,11 @@ class EmbeddingClassifier:
         return result
                         
     def __beautify_output(self, output_by_embeddings, classification_label):
-        # Create a dictionary to track unique names
         unique_names = set()
         dict_results = []
         
         names = Counter([class_map['name'] for class_map in output_by_embeddings])
 
-        # Add unique items from output_by_embeddings to dict_results
         for class_map in output_by_embeddings:
             name = class_map['name']
             if name not in unique_names:
@@ -77,7 +75,6 @@ class EmbeddingClassifier:
                 dict_results.append(class_map)
                 unique_names.add(name)
 
-        # Add the classification label if it is not already present
         label_name = classification_label['label']
         if label_name not in unique_names:
             logging.info("[PROCESSING][CLASSIFICATION] Append into output classification result by FC - layer")
@@ -91,7 +88,6 @@ class EmbeddingClassifier:
                 'drawn_fish_id': None,
             })
 
-        # Sort the results by accuracy in descending order
         dict_results.sort(key=lambda x: x['accuracy'], reverse=True)
 
         return dict_results
@@ -111,7 +107,6 @@ class EmbeddingClassifier:
         elif distance >= self.max_threshold:
             return 0.0
         else:
-            # Linear probability conversion
             return (self.max_threshold - distance) / (self.max_threshold - self.min_threshold)
 
     def inference_numpy(self, img):
@@ -179,24 +174,18 @@ class EmbeddingClassifier:
         
         image = cv2.imread(image_path)
 
-        # Detectas con YOLO
         predictions = self.detector.predict(image)
 
         fishes = []
-        # Recorres cada bounding box
         # print(len(predictions[0]))
         for result in predictions[0]:
-            # Extraes la región de interés (ROI) correspondiente a la caja
             x1, y1, x2, y2 = result.get_box()
-            crop_img = result.get_mask_BGR()  # Obtienes el recorte de la imagen original del pez
+            crop_img = result.get_mask_BGR() 
             
-            # Ahora clasificas este recorte utilizando el segundo modelo
             classification_results = self.inference_numpy(crop_img)
             
-            # classification_results es una lista de dict con las posibles especies.
-            # Tomamos el primer resultado como la especie más probable (ya que la lista viene ordenada por accuracy)
             if len(classification_results) > 0:
-                best_species = classification_results[0]  # El resultado con mayor accuracy
+                best_species = classification_results[0] 
                 species_name = best_species['name']
                 species_conf = best_species['accuracy']
                 fishes.append({
@@ -207,31 +196,25 @@ class EmbeddingClassifier:
                 species_name = "Desconocido"
                 species_conf = 0.0
 
-            # Dibujas el bounding box
             if draw_bb:
                 result.draw_box(image, color=(0, 255, 0), thickness=10)
 
-            # Creas una etiqueta con el nombre y la confianza
             label_text = f"{species_name} ({species_conf * 100:.2f}%)"
             result.draw_label(image, label_text, color=(0, 255, 0), font_scale=1, thickness=2)
             
         cv2.imwrite(out_path, image)
         return fishes
     
-# # Configurar logging
 # logging.basicConfig(level=logging.INFO)
 
-# # Inicializar el clasificador
 # model_path = "models/class_model.ts"
 # database_path = "database.pt"
 # classifier = EmbeddingClassifier(model_path, database_path, device="cpu")
 
-# # Cargar una imagen de prueba
 # image_path = "images/bass.jpg"
 # image = Image.open(image_path)
 # image_np = np.array(image)
 
-# # Inferencia en una sola imagen
 # result = classifier.inference_numpy(image_np)
 # print("Resultados:", result)
 

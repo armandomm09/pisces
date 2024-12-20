@@ -56,16 +56,13 @@ def display_instances(image, boxes, masks, class_ids, class_names,
     N = boxes.shape[0]
     assert boxes.shape[0] == masks.shape[-1] == class_ids.shape[0]
 
-    # If no axis is passed, create one and automatically call show()
     auto_show = False
     if not ax:
         _, ax = plt.subplots(1, figsize=figsize)
         auto_show = True
 
-    # Generate random colors
     colors = colors or random_colors(N)
 
-    # Show area outside image boundaries.
     height, width = image.shape[:2]
     ax.set_ylim(height + 10, -10)
     ax.set_xlim(-10, width + 10)
@@ -76,9 +73,7 @@ def display_instances(image, boxes, masks, class_ids, class_names,
     for i in range(N):
         color = colors[i]
 
-        # Bounding box
         if not np.any(boxes[i]):
-            # Skip this instance. Has no bbox. Likely lost in image cropping.
             continue
         x1, y1, width, height = boxes[i]
         if show_bbox:
@@ -87,7 +82,6 @@ def display_instances(image, boxes, masks, class_ids, class_names,
                                 edgecolor=color, facecolor='none')
             ax.add_patch(p)
 
-        # Label
         if not captions:
             class_id = class_ids[i]
             score = scores[i] if scores is not None else None
@@ -98,19 +92,15 @@ def display_instances(image, boxes, masks, class_ids, class_names,
         ax.text(x1, y1 + 8, caption,
                 color='w', size=11, backgroundcolor="none")
 
-        # Mask
         mask = masks[:, :, i]
         if show_mask:
             masked_image = apply_mask(masked_image, mask, color)
 
-        # Mask Polygon
-        # Pad to ensure proper polygons for masks that touch image edges.
         padded_mask = np.zeros(
             (mask.shape[0] + 2, mask.shape[1] + 2), dtype=np.uint8)
         padded_mask[1:-1, 1:-1] = mask
         contours = find_contours(padded_mask, 0.5)
         for verts in contours:
-            # Subtract the padding and flip (y, x) to (x, y)
             verts = np.fliplr(verts) - 1
             p = Polygon(verts, facecolor="none", edgecolor=color)
             ax.add_patch(p)
@@ -122,33 +112,19 @@ def display_instances(image, boxes, masks, class_ids, class_names,
 # import cv2
 # import numpy as np
 
-# # Suponiendo que tienes la clase SegmentationInference definida 
-# # en un archivo segmentation_inference.py (por ejemplo) 
 # from inference import SegmentationInference
 
-# # Ruta al modelo TorchScript
 # model_path = "models/segmentation_21_08_2023.ts" 
 
-# # Crear una instancia de la clase con el modelo cargado
 # seg_inf = SegmentationInference(model_path)
 
-# # Cargar una imagen (por ejemplo con OpenCV)
 # img_path = "images/bass.jpg"
 # np_img_src = cv2.imread(img_path)
 
-# # Asegúrate de que la imagen esté en el formato que el modelo espera. 
-# # Por lo general, OpenCV carga en BGR. Muchos modelos funcionan con RGB, 
-# # aunque este código parece usar OpenCV internamente, por lo que BGR debería ser correcto.
-# # Si fuera necesario convertir a RGB:
-# # np_img_src = cv2.cvtColor(np_img_src, cv2.COLOR_BGR2RGB)
 
-# # Ejecutar la inferencia
 # polygons, masks = seg_inf.inference(np_img_src)
 
 
-# # 'polygons' contendrá la lista de polígonos detectados en el formato dict ("x1", "y1", "x2", "y2", etc.)
-# # 'masks' serán las máscaras resultantes.
-# # cv2.fillPoly()
 # polys = [[polygons[0][f'x{i}'], polygons[0][f'y{i}']] for i in range(1, int(len(polygons[0])/2))]
 
 # pols_arr = np.array(polys)

@@ -16,7 +16,6 @@ client.once('ready', async () => {
 
 });
 
-// Generar el código QR
 client.on('qr', (qr) => {
     console.log('Escanea este código QR con tu aplicación de WhatsApp:');
     qrcode.generate(qr, { small: true });

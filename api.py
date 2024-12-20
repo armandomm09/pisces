@@ -22,7 +22,6 @@ async def default():
 @app.post("/image")
 async def image(file: UploadFile = File(...)):
     try:
-        # Lee el contenido del archivo subido
         contents = file.file.read()
         
         image_uuid = str(uuid.uuid4())
@@ -30,7 +29,6 @@ async def image(file: UploadFile = File(...)):
         file_path = f"uploads/{image_name}"
         
         
-        # Escribe el archivo en el sistema de archivos
         with open(file_path, "wb") as f:
             f.write(contents)
 
