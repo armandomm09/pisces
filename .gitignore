@@ -1,0 +1,20 @@
+__pycache__
+# downloads/
+images/own/
+
+out_images/own_bb/
+out_images/own_/
+
+models/bb_model.ts
+models/class_model.ts
+models/segmentation_21_08_2023.ts
+
+venv/
+
+whatsapp/.wwebjs_auth
+whatsapp/.wwebjs_cache
+whatsapp/node_modules
+
+database.pt
+
+out_images/own
